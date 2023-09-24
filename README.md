@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Nuxt 3 Eslint configuration
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Eslint [Antfu](https://github.com/antfu/eslint-config) configuration.
 
 ## Setup
 
@@ -8,16 +8,16 @@ Make sure to install the dependencies:
 
 ```bash
 # npm
-npm install
+npm install -D eslint @antfu/eslint-config
 
 # pnpm
-pnpm install
+pnpm add -D eslint @antfu/eslint-config
 
 # yarn
-yarn install
+yarn add -D eslint @antfu/eslint-config
 
 # bun
-bun install
+bun install eslint @antfu/eslint-config
 ```
 
 ## Development Server
@@ -38,38 +38,51 @@ yarn dev
 bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
+## VS Code setting
 ```bash
-# npm
-npm run build
+  {
+    // Enable the flat config support
+    "eslint.experimental.useFlatConfig": true,
 
-# pnpm
-pnpm run build
+    // Disable the default formatter
+    "prettier.enable": false,
+    "editor.formatOnSave": false,
 
-# yarn
-yarn build
+    // Auto fix
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true,
+      "source.organizeImports": false
+    },
 
-# bun
-bun run build
+    // Silent the stylistic rules in you IDE, but still auto fix them
+    "eslint.rules.customizations": [
+      { "rule": "@stylistic/*", "severity": "off" },
+      { "rule": "style*", "severity": "off" },
+      { "rule": "*-indent", "severity": "off" },
+      { "rule": "*-spacing", "severity": "off" },
+      { "rule": "*-spaces", "severity": "off" },
+      { "rule": "*-order", "severity": "off" },
+      { "rule": "*-dangle", "severity": "off" },
+      { "rule": "*-newline", "severity": "off" },
+      { "rule": "*quotes", "severity": "off" },
+      { "rule": "*semi", "severity": "off" }
+    ],
+
+    // The following is optional.
+    // It's better to put under project setting `.vscode/settings.json`
+    // to avoid conflicts with working with different eslint configs
+    // that does not support all formats.
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "vue",
+      "html",
+      "markdown",
+      "json",
+      "jsonc",
+      "yaml"
+    ]
+  }
 ```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
